@@ -107,9 +107,6 @@ if selected_clusters_input:
     #map_center = [df_selected_clusters['Latitude'].mean(), df_selected_clusters['Longitude'].mean()]
     map_center = folium.Map(location=[df_selected_clusters['Latitude'].mean(), df_selected_clusters['Longitude'].mean()], zoom_start=15)
 
-    # Set the locale to Indonesian
-    locale.setlocale(locale.LC_NUMERIC, 'id_ID')
-
     # Loop over filtered data and add markers to map
     for index, row in df_selected_clusters.iterrows():
         # Determine the color based on the condition
@@ -121,14 +118,11 @@ if selected_clusters_input:
         nama_penilai = row['Penanda Tangan']
         nama_kjpp = row['KJPP']
 
-        # Format the land value
-        formatted_nilai_tanah = locale.format_string("%.2f", nilai_tanah, grouping=True)
-
         # Construct html string based on selected values
         html = ""
         html += f"Penilai: {nama_penilai}<br>"
         html += f"KJPP: {nama_kjpp}<br>"
-        html += f"Nilai Tanah: Rp{formatted_nilai_tanah}"
+        html += f"Nilai Tanah: {nilai_tanah}"
 
         # Add marker to map with hover information and use the determined color
         folium.Marker(
